@@ -28,14 +28,24 @@ class DisplayListOfTasks extends StatelessWidget {
         child: Text(
           emptyTasksAlert,
           style: context.textTheme.headlineSmall,
-        ),
-      )
+        ),)
           : ListView.separated(
         shrinkWrap: true,
         itemCount: tasks.length,
         padding: EdgeInsets.zero,
         itemBuilder: (ctx, index) {
+          final task = tasks[index];
+          return InkWell(
+            onLongPress: () {
 
+            },
+            onTap:  () async {
+              await showModalBottomSheet(context: context, builder: (ctx) {
+                return TaskDetails(task: task);
+              });
+            },
+            child: TaskTile(task: task),
+          );
         },
         separatorBuilder: (context, index) => const Divider(
           thickness: 1.5,
